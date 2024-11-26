@@ -1,0 +1,27 @@
+---
+// interface Props {
+//   title: string;
+//   body: string;
+//   // href: string;
+// }
+
+// const body = await Astro.request.json();
+
+// console.log(body);
+export const partial = true;
+export const prerender = false;
+---
+
+<li class="flex p-2 border-2">
+  <h2>
+    <!-- {title} -->
+    TEST
+    <span>&rarr;</span>
+  </h2>
+  <p>
+    <!-- {body} -->
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo laudantium minima
+    nostrum eum placeat hic doloremque velit cum exercitationem assumenda numquam,
+    animi nesciunt odio quisquam modi at possimus iure quia.
+  </p>
+</li>

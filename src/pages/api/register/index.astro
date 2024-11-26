@@ -1,0 +1,40 @@
+---
+import { RegisterForm } from "../../../components/RegisterForm.tsx";
+import { RegisterDataSchema } from "../../../types/register-schema";
+import { z, ZodError } from "zod";
+
+export const partial = false;
+
+const reqMethod = Astro.request.method;
+
+let error: ZodError<z.infer<typeof RegisterDataSchema>> | undefined;
+let data: z.infer<typeof RegisterDataSchema> | undefined;
+
+if (reqMethod === "POST") {
+  const formData = await Astro.request.formData();
+  const email = formData.get("email");
+  const username = formData.get("username");
+  const password = formData.get("password");
+
+  data = {
+    email: email as string,
+    username: username as string,
+    password: password as string,
+  };
+
+  const parseForm = RegisterDataSchema.safeParse({
+    email,
+    username,
+    password,
+  });
+
+  if (parseForm.success) {
+    console.log(parseForm.data);
+  } else {
+    error = parseForm.error;
+    console.log(parseForm.error.errors);
+  }
+}
+---
+
+<RegisterForm error={error} data={data} />
